@@ -13,6 +13,7 @@ public class MainFrame extends JFrame {
 
     private TextPanel textPanel;
     private ToolbarPanel toolbarPanel;
+    private FormPanel formPanel;
 
     public MainFrame(String title){
 
@@ -32,7 +33,10 @@ public class MainFrame extends JFrame {
             }
         });
 
+        this.formPanel = new FormPanel();
+
         this.add(this.textPanel, BorderLayout.CENTER);
         this.add(this.toolbarPanel, BorderLayout.NORTH);
+        this.add(this.formPanel, BorderLayout.WEST);
     }
 }

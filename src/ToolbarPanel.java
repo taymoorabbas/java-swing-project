@@ -18,7 +18,7 @@ public class ToolbarPanel extends JPanel implements ActionListener {
 
     public ToolbarPanel(){
 
-        this.setLayout(new FlowLayout());
+        this.setLayout(new FlowLayout(FlowLayout.LEADING));
 
         this.helloButton = new JButton("Hello");
         this.goodbyeButton = new JButton("Goodbye");
@@ -52,7 +52,7 @@ public class ToolbarPanel extends JPanel implements ActionListener {
 
             if(this.textListener != null){
 
-                textListener.textListened("Goodbye\n");
+                textListener.textListened("Goodbye\n    ");
             }
         }
     }
