@@ -8,10 +8,13 @@ Lau ji Ghauri aya fir
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class ToolbarPanel extends JPanel {
+public class ToolbarPanel extends JPanel implements ActionListener {
 
     private JButton helloButton, goodbyeButton;
+    private TextPanel textPanel;
 
     public ToolbarPanel(){
 
@@ -20,7 +23,31 @@ public class ToolbarPanel extends JPanel {
         this.helloButton = new JButton("Hello");
         this.goodbyeButton = new JButton("Goodbye");
 
+        this.helloButton.addActionListener(this);
+        this.goodbyeButton.addActionListener(this);
+
+
         this.add(helloButton);
         this.add(goodbyeButton);
+    }
+
+    public void setTextPanel(TextPanel textPanel) {
+
+        this.textPanel = textPanel;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        JButton clickedButton = (JButton) e.getSource();
+
+        if(clickedButton == this.helloButton){
+
+            this.textPanel.appendText("Hello there\n");
+        }
+        if(clickedButton == this.goodbyeButton){
+
+            this.textPanel.appendText("Goodbye\n");
+        }
     }
 }
