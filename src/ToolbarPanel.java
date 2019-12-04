@@ -26,6 +26,10 @@ public class ToolbarPanel extends JPanel implements ActionListener {
         this.helloButton.addActionListener(this);
         this.goodbyeButton.addActionListener(this);
 
+        this.setBorder(BorderFactory.
+                createCompoundBorder(BorderFactory.createEmptyBorder(5,5,5,5),
+                        BorderFactory.createLineBorder(Color.orange, 2, true)));
+
 
         this.add(helloButton);
         this.add(goodbyeButton);
