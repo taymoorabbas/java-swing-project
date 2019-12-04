@@ -8,6 +8,8 @@ Lau ji Ghauri aya fir
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame {
 
@@ -24,9 +26,15 @@ public class MainFrame extends JFrame {
 
         this.textArea = new JTextArea();
         this.button = new JButton("Click me!");
+        this.button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                textArea.append("Hello there!\n");
+            }
+        });
 
         this.add(this.textArea, BorderLayout.CENTER);
         this.add(this.button, BorderLayout.SOUTH);
-
     }
 }
