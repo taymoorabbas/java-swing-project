@@ -8,13 +8,11 @@ Lau ji Ghauri aya fir
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame {
 
-    private JTextArea textArea;
-    private JButton button;
+    private TextPanel textPanel;
+    private ToolbarPanel toolbarPanel;
 
     public MainFrame(String title){
 
@@ -24,17 +22,10 @@ public class MainFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 500);
 
-        this.textArea = new JTextArea();
-        this.button = new JButton("Click me!");
-        this.button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        this.textPanel = new TextPanel();
+        this.toolbarPanel = new ToolbarPanel();
 
-                textArea.append("Hello there!\n");
-            }
-        });
-
-        this.add(this.textArea, BorderLayout.CENTER);
-        this.add(this.button, BorderLayout.SOUTH);
+        this.add(this.textPanel, BorderLayout.CENTER);
+        this.add(this.toolbarPanel, BorderLayout.NORTH);
     }
 }
