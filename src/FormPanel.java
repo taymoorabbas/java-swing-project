@@ -18,11 +18,9 @@ public class FormPanel extends JPanel {
 
     public FormPanel(){
 
-        this.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
-
         //uses magic constants ie. pre defined constants (options)
-        this.nameLabel = new JLabel("name", SwingConstants.CENTER);
-        this.occupationLabel = new JLabel("occupation", SwingConstants.CENTER);
+        this.nameLabel = new JLabel("name:", SwingConstants.CENTER);
+        this.occupationLabel = new JLabel("occupation:", SwingConstants.CENTER);
 
         this.nameTextField = new JTextField(10);
         this.occupationTextField = new JTextField(10);
@@ -39,12 +37,60 @@ public class FormPanel extends JPanel {
                         createEmptyBorder(2,5,5,5),
                         theBorder));
 
-        this.add(nameLabel);
-        this.add(nameTextField);
+        //the most flexible layout
+        this.setLayout(new GridBagLayout());
 
-        this.add(occupationLabel);
-        this.add(occupationTextField);
-        this.add(saveButton);
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+//        //most important first steps
+//        gridBagConstraints.gridx = 0;
+//        gridBagConstraints.gridy = 0;
+//        gridBagConstraints.weightx = 1; //like in linear layout android sdk
+//        gridBagConstraints.weighty = 1;
+//        gridBagConstraints.fill = GridBagConstraints.NONE; //how much space the component will fill in cell
+//        gridBagConstraints.anchor = GridBagConstraints.LINE_END; //alignment of the cell ie. stick component to the right
+
+        ////////////////////////ROW 1///////////////////////////////////////////
+
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.weightx = 1; //like in linear layout android sdk
+        gridBagConstraints.weighty = 0.1; //we need small vertical spaces
+        gridBagConstraints.fill = GridBagConstraints.NONE; //how much space the component will fill in cell
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END; //alignment of the cell ie. stick component to the right
+        gridBagConstraints.insets = new Insets(0,0,0,5); //padding of component
+        this.add(nameLabel, gridBagConstraints);
+
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_START; //stick component to the left
+        gridBagConstraints.insets = new Insets(0,0,0,0); //reset padding
+        this.add(nameTextField, gridBagConstraints);
+
+        ////////////////////////ROW 2///////////////////////////////////////////
+
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.weightx = 1; //like in linear layout android sdk
+        gridBagConstraints.weighty = 0.1; //we need small vertical spaces
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END; //stick component to the right
+        gridBagConstraints.insets = new Insets(0,0,0, 5); //padding of component
+        this.add(occupationLabel, gridBagConstraints);
+
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_START; //stick component to the left
+        gridBagConstraints.insets = new Insets(0,0,0,0); //reset padding
+        this.add(occupationTextField, gridBagConstraints);
+
+        ////////////////////////ROW 3///////////////////////////////////////////
+
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.weightx = 1; //like in linear layout android sdk
+        gridBagConstraints.weighty = 1; //we need big vertical space for button
+        gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_START; //stick component to the left
+        gridBagConstraints.insets = new Insets(0,0,0,0); //reset padding (no need here though)
+        this.add(saveButton, gridBagConstraints);
     }
 
     @Override
