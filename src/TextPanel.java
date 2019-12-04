@@ -19,6 +19,9 @@ public class TextPanel extends JPanel {
         this.textArea = new JTextArea();
 
         this.add(new JScrollPane(this.textArea), BorderLayout.CENTER);
+        this.setBorder(BorderFactory.
+                createCompoundBorder(BorderFactory.createEmptyBorder(5,2,5,5),
+                        BorderFactory.createLineBorder(Color.orange, 2,true) ));
     }
 
     public void appendText(String text){
