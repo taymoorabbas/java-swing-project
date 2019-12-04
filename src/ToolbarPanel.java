@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 public class ToolbarPanel extends JPanel implements ActionListener {
 
     private JButton helloButton, goodbyeButton;
-    private TextPanel textPanel;
+    private TextListener textListener;
 
     public ToolbarPanel(){
 
@@ -31,9 +31,9 @@ public class ToolbarPanel extends JPanel implements ActionListener {
         this.add(goodbyeButton);
     }
 
-    public void setTextPanel(TextPanel textPanel) {
+    public void setTextListener(TextListener textListener){
 
-        this.textPanel = textPanel;
+        this.textListener = textListener;
     }
 
     @Override
@@ -43,11 +43,17 @@ public class ToolbarPanel extends JPanel implements ActionListener {
 
         if(clickedButton == this.helloButton){
 
-            this.textPanel.appendText("Hello there\n");
+            if(this.textListener != null){
+
+                textListener.textListened("Hello\n");
+            }
         }
         if(clickedButton == this.goodbyeButton){
 
-            this.textPanel.appendText("Goodbye\n");
+            if(this.textListener != null){
+
+                textListener.textListened("Goodbye\n");
+            }
         }
     }
 }
