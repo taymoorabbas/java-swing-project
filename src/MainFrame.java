@@ -42,6 +42,11 @@ public class MainFrame extends JFrame {
                 textPanel.appendText("occupation: " + e.getOccupation() + "\n");
                 textPanel.appendText("age: " + e.getAgeCategory() + "\n");
                 textPanel.appendText("employment: " + e.getEmploymentCategory() + "\n");
+                textPanel.appendText("US citizenship: " + e.isUSCitizen() + "\n");
+                if(e.getTaxID() != null){
+
+                    textPanel.appendText("Tax ID: " + e.getTaxID() + "\n");
+                }
             }
         });
 
