@@ -21,6 +21,8 @@ public class FormPanel extends JPanel {
     private JComboBox employmentComboBox;
     private JCheckBox citizenCheckBox;
     private JTextField taxIDTextField;
+    private JRadioButton maleRadio, femaleRadio;
+    private ButtonGroup genderButtonGroup;
     private FormListener formListener;
 
     public FormPanel() {
@@ -52,7 +54,9 @@ public class FormPanel extends JPanel {
                 System.out.println(age.getId());
                 System.out.println(employmentCategory);
 
-                FormEvent formEvent = new FormEvent(e, name, occupation, age.getId(), employmentCategory, isUSCitizen, taxID);
+                String gender = genderButtonGroup.getSelection().getActionCommand();
+
+                FormEvent formEvent = new FormEvent(e, name, occupation, age.getId(), employmentCategory, isUSCitizen, taxID, gender);
 
                 if (formListener != null) {
 
@@ -109,6 +113,22 @@ public class FormPanel extends JPanel {
                 }
             }
         });
+
+        this.maleRadio = new JRadioButton("Male");
+        this.maleRadio.setActionCommand("male");
+
+        this.femaleRadio = new JRadioButton("Female");
+        this.femaleRadio.setActionCommand("female");
+
+        this.genderButtonGroup = new ButtonGroup();
+        this.maleRadio.setSelected(true);
+
+        //setup gender radio
+        this.genderButtonGroup.add(this.maleRadio);
+        this.genderButtonGroup.add(this.femaleRadio);
+
+
+
 
         Border theBorder = BorderFactory.
                 createCompoundBorder(BorderFactory.createTitledBorder("Add person"),
@@ -222,6 +242,31 @@ public class FormPanel extends JPanel {
         gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_END; //stick component to the right
         gridBagConstraints.insets = new Insets(0, 0, 0, 5); //padding of component
         this.add(taxLabel, gridBagConstraints);
+
+        ////////////////////////NEXT ROW///////////////////////////////////////////
+
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy++;
+        gridBagConstraints.weightx = 1; //like in linear layout android sdk
+        gridBagConstraints.weighty = 0.05;
+        gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_START; //stick component to the left
+        gridBagConstraints.insets = new Insets(0, 0, 0, 0); //reset padding (already done above)
+        this.add(maleRadio, gridBagConstraints);
+
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END; //stick component to the right
+        gridBagConstraints.insets = new Insets(0, 0, 0, 5); //padding of component
+        this.add(new JLabel("Gender:"), gridBagConstraints);
+
+        ////////////////////////NEXT ROW///////////////////////////////////////////
+
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy++;
+        gridBagConstraints.weightx = 1; //like in linear layout android sdk
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_START; //stick component to the left
+        gridBagConstraints.insets = new Insets(0, 0, 0, 0); //reset padding (already done above)
+        this.add(femaleRadio, gridBagConstraints);
 
         ////////////////////////NEXT ROW///////////////////////////////////////////
 

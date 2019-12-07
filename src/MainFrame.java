@@ -47,6 +47,7 @@ public class MainFrame extends JFrame {
 
                     textPanel.appendText("Tax ID: " + e.getTaxID() + "\n");
                 }
+                textPanel.appendText("Gender: " + e.getGender() + "\n");
             }
         });
 
