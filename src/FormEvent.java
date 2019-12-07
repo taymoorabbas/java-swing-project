@@ -11,19 +11,20 @@ import java.util.EventObject;
 //this class can handle swing events ie. ActionEvents
 public class FormEvent extends EventObject {
 
-    private String name, occupation;
+    private String name, occupation, employmentCategory;
     private int ageCategory;
 
       public FormEvent(Object source) {
         super(source);
     }
 
-    public FormEvent(Object source, String name, String occupation, int ageCategory){
+    public FormEvent(Object source, String name, String occupation, int ageCategory, String employmentCategory){
 
           super(source);
           this.name = name;
           this.occupation = occupation;
           this.ageCategory = ageCategory;
+          this.employmentCategory = employmentCategory;
     }
 
     public String getName() {
@@ -48,5 +49,13 @@ public class FormEvent extends EventObject {
 
     public void setAgeCategory(int ageCategory) {
         this.ageCategory = ageCategory;
+    }
+
+    public String getEmploymentCategory() {
+        return employmentCategory;
+    }
+
+    public void setEmploymentCategory(String employmentCategory) {
+        this.employmentCategory = employmentCategory;
     }
 }
