@@ -18,6 +18,7 @@ public class FormPanel extends JPanel {
     private JTextField nameTextField, occupationTextField;
     private JButton saveButton;
     private JList ageList;
+    private JComboBox employmentComboBox;
     private FormListener formListener;
 
     public FormPanel() {
@@ -37,10 +38,12 @@ public class FormPanel extends JPanel {
                 String name = nameTextField.getText().trim();
                 String occupation = occupationTextField.getText().trim();
                 AgeCategory age = (AgeCategory) ageList.getSelectedValue();
+                String employmentCategory = (String) employmentComboBox.getSelectedItem();
 
                 System.out.println(age.getId());
+                System.out.println(employmentCategory);
 
-                FormEvent formEvent = new FormEvent(e, name, occupation, age.getId());
+                FormEvent formEvent = new FormEvent(e, name, occupation, age.getId(), employmentCategory);
 
                 if (formListener != null) {
 
@@ -51,6 +54,7 @@ public class FormPanel extends JPanel {
 
         this.ageList = new JList<>();
 
+        //SETUP AGELIST
         //acts as M in MVC for the JList. for info on MVC, google it
         DefaultListModel ageModel = new DefaultListModel();
         ageModel.addElement(new AgeCategory(0, "Under 18"));
@@ -61,6 +65,17 @@ public class FormPanel extends JPanel {
         ageList.setBorder(BorderFactory.createEtchedBorder());
         ageList.setSelectedIndex(1);
 
+        this.employmentComboBox = new JComboBox();
+
+        //SETUP ComboBox
+        DefaultComboBoxModel comboModel = new DefaultComboBoxModel();
+        comboModel.addElement("employed");
+        comboModel.addElement("self-employed");
+        comboModel.addElement("unemployed");
+        this.employmentComboBox.setModel(comboModel);
+        this.employmentComboBox.setSelectedIndex(0);
+        this.employmentComboBox.setEditable(true);
+
         Border theBorder = BorderFactory.
                 createCompoundBorder(BorderFactory.createTitledBorder("Add person"),
                         BorderFactory.createLineBorder(Color.orange, 2, true));
@@ -70,14 +85,20 @@ public class FormPanel extends JPanel {
                                 createEmptyBorder(2, 5, 5, 5),
                         theBorder));
 
+        layoutComponents();
+
+    }
+
+    private void layoutComponents() {
         //the most flexible layout
         this.setLayout(new GridBagLayout());
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-        ////////////////////////ROW 1///////////////////////////////////////////
+        gridBagConstraints.gridy = 0;
+
+        ////////////////////////ROW///////////////////////////////////////////
 
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 1; //like in linear layout android sdk
         gridBagConstraints.weighty = 0.1; //we need small vertical spaces
         gridBagConstraints.fill = GridBagConstraints.NONE; //how much space the component will fill in cell
@@ -91,10 +112,11 @@ public class FormPanel extends JPanel {
         gridBagConstraints.insets = new Insets(0, 0, 0, 0); //reset padding
         this.add(nameTextField, gridBagConstraints);
 
-        ////////////////////////ROW 2///////////////////////////////////////////
+        ////////////////////////NEXT ROW///////////////////////////////////////////
 
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy++;
+
         gridBagConstraints.weightx = 1; //like in linear layout android sdk
         gridBagConstraints.weighty = 0.1; //we need small vertical spaces
         gridBagConstraints.anchor = GridBagConstraints.LINE_END; //stick component to the right
@@ -107,20 +129,40 @@ public class FormPanel extends JPanel {
         gridBagConstraints.insets = new Insets(0, 0, 0, 0); //reset padding
         this.add(occupationTextField, gridBagConstraints);
 
-        ////////////////////////ROW 3///////////////////////////////////////////
+        ////////////////////////NEXT ROW///////////////////////////////////////////
 
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy++;
         gridBagConstraints.weightx = 1; //like in linear layout android sdk
         gridBagConstraints.weighty = 0.2;
         gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_START; //stick component to the left
         gridBagConstraints.insets = new Insets(0, 0, 0, 0); //reset padding (already done above)
         this.add(ageList, gridBagConstraints);
 
-        ////////////////////////ROW 4///////////////////////////////////////////
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_END; //stick component to the right
+        gridBagConstraints.insets = new Insets(0, 0, 0, 5); //padding of component
+        this.add(new JLabel("Age: "), gridBagConstraints);
+
+        ////////////////////////NEXT ROW///////////////////////////////////////////
 
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy++;
+        gridBagConstraints.weightx = 1; //like in linear layout android sdk
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_START; //stick component to the left
+        gridBagConstraints.insets = new Insets(0, 0, 0, 0); //reset padding (already done above)
+        this.add(employmentComboBox, gridBagConstraints);
+
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_END; //stick component to the right
+        gridBagConstraints.insets = new Insets(0, 0, 0, 5); //padding of component
+        this.add(new JLabel("Employment: "), gridBagConstraints);
+
+        ////////////////////////NEXT ROW///////////////////////////////////////////
+
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy++;
         gridBagConstraints.weightx = 1; //like in linear layout android sdk
         gridBagConstraints.weighty = 1; //we need big vertical space for button
         gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_START; //stick component to the left
