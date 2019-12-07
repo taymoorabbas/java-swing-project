@@ -17,6 +17,7 @@ public class FormPanel extends JPanel {
     private JLabel nameLabel, occupationLabel;
     private JTextField nameTextField, occupationTextField;
     private JButton saveButton;
+    private JList<String> ageList;
     private FormListener formListener;
 
     public FormPanel() {
@@ -35,6 +36,9 @@ public class FormPanel extends JPanel {
 
                 String name = nameTextField.getText().trim();
                 String occupation = occupationTextField.getText().trim();
+                String age = ageList.getSelectedValue();
+
+                System.out.println(age);
 
                 FormEvent formEvent = new FormEvent(e, name, occupation);
 
@@ -44,6 +48,18 @@ public class FormPanel extends JPanel {
                 }
             }
         });
+
+        this.ageList = new JList<>();
+
+        //acts as M in MVC for the JList. for info on MVC, google it
+        DefaultListModel<String> ageModel = new DefaultListModel<>();
+        ageModel.addElement("Under 18");
+        ageModel.addElement("18 to 65");
+        ageModel.addElement("65 and above");
+        ageList.setModel(ageModel);
+        ageList.setPreferredSize(new Dimension(110, 70));
+        ageList.setBorder(BorderFactory.createEtchedBorder());
+        ageList.setSelectedIndex(1);
 
         Border theBorder = BorderFactory.
                 createCompoundBorder(BorderFactory.createTitledBorder("Add person"),
@@ -96,7 +112,17 @@ public class FormPanel extends JPanel {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.weightx = 1; //like in linear layout android sdk
-        gridBagConstraints.weighty = 2; //we need big vertical space for button
+        gridBagConstraints.weighty = 0.2;
+        gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_START; //stick component to the left
+        gridBagConstraints.insets = new Insets(0, 0, 0, 0); //reset padding (already done above)
+        this.add(ageList, gridBagConstraints);
+
+        ////////////////////////ROW 4///////////////////////////////////////////
+
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weightx = 1; //like in linear layout android sdk
+        gridBagConstraints.weighty = 1; //we need big vertical space for button
         gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_START; //stick component to the left
         gridBagConstraints.insets = new Insets(0, 0, 0, 0); //reset padding (already done above)
         this.add(saveButton, gridBagConstraints);
