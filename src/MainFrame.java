@@ -40,6 +40,7 @@ public class MainFrame extends JFrame {
 
                 textPanel.appendText("name: " + e.getName() + "\n");
                 textPanel.appendText("occupation: " + e.getOccupation() + "\n");
+                textPanel.appendText("age: " + e.getAgeCategory() + "\n");
             }
         });
 
