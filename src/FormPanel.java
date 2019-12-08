@@ -89,13 +89,13 @@ public class FormPanel extends JPanel {
         this.employmentComboBox.setSelectedIndex(0);
         this.employmentComboBox.setEditable(true);
 
-        this.citizenCheckBox = new JCheckBox();
-
         this.taxLabel = new JLabel("Tax ID: ");
         this.taxLabel.setEnabled(false);
 
         this.taxIDTextField = new JTextField(10);
         taxIDTextField.setEnabled(false);
+
+        this.citizenCheckBox = new JCheckBox();
 
         this.citizenCheckBox.addActionListener(new ActionListener() {
             @Override
@@ -128,19 +128,21 @@ public class FormPanel extends JPanel {
         this.genderButtonGroup.add(this.femaleRadio);
 
 
+        addBorder(Color.orange);
 
+        layoutComponents();
 
+    }
+
+    public void addBorder(Color color) {
         Border theBorder = BorderFactory.
                 createCompoundBorder(BorderFactory.createTitledBorder("Add person"),
-                        BorderFactory.createLineBorder(Color.orange, 2, true));
+                        BorderFactory.createLineBorder(color, 2, true));
 
         this.setBorder(BorderFactory.
                 createCompoundBorder(BorderFactory.
                                 createEmptyBorder(2, 5, 5, 5),
                         theBorder));
-
-        layoutComponents();
-
     }
 
     private void layoutComponents() {
