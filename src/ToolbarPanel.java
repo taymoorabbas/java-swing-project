@@ -56,7 +56,7 @@ public class ToolbarPanel extends JPanel implements ActionListener {
 
             if(this.textListener != null){
 
-                textListener.textListened("Goodbye\n    ");
+                textListener.textListened("Goodbye\n");
             }
         }
     }

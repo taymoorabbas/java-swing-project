@@ -15,6 +15,7 @@ public class MainFrame extends JFrame{
     private ToolbarPanel toolbarPanel;
     private FormPanel formPanel;
     private FormMenuBar formMenuBar;
+    private JFileChooser fileChooser;
 
     public MainFrame(String title){
 
@@ -25,6 +26,10 @@ public class MainFrame extends JFrame{
 
         this.setMinimumSize(new Dimension(600,500));
         this.setSize(600, 500);
+
+        //file chooser
+        this.fileChooser = new JFileChooser();
+        this.fileChooser.addChoosableFileFilter(new PersonFileFilter());
 
         this.textPanel = new TextPanel();
         this.toolbarPanel = new ToolbarPanel();
@@ -58,6 +63,21 @@ public class MainFrame extends JFrame{
         this.formMenuBar.setMenuItemListener(new MenuItemListener() {
             @Override
             public void itemClicked(JMenuItem item) {
+
+                if(item.getActionCommand().equals("export")){
+
+                    if(fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION){
+                        System.out.println(fileChooser.getSelectedFile());
+                    }
+                }
+
+                if(item.getActionCommand().equals("import")){
+
+                    if(fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION){
+
+                        System.out.println(fileChooser.getSelectedFile());
+                    }
+                }
 
                 if(item.getActionCommand().equals("exit")){
 
