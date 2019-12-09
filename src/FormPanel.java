@@ -11,6 +11,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class FormPanel extends JPanel {
 
@@ -27,14 +28,18 @@ public class FormPanel extends JPanel {
 
     public FormPanel() {
 
-        //uses magic constants ie. pre defined constants (options)
-        this.nameLabel = new JLabel("name:", SwingConstants.CENTER);
-        this.occupationLabel = new JLabel("occupation:", SwingConstants.CENTER);
-
         this.nameTextField = new JTextField(10);
         this.occupationTextField = new JTextField(10);
 
+        //uses magic constants ie. pre defined constants (options)
+        this.nameLabel = new JLabel("name:", SwingConstants.CENTER);
+        this.nameLabel.setDisplayedMnemonic(KeyEvent.VK_N);
+        this.nameLabel.setLabelFor(this.nameTextField);
+
+        this.occupationLabel = new JLabel("occupation:", SwingConstants.CENTER);
+
         this.saveButton = new JButton("Save");
+        this.saveButton.setMnemonic(KeyEvent.VK_S);
         this.saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
