@@ -6,6 +6,8 @@ Time: 3:46 PM
 Lau ji Ghauri aya fir
 */
 
+import ui.MainFrame;
+
 import javax.swing.*;
 
 public class Main {
