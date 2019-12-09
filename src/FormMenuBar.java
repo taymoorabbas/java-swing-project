@@ -9,10 +9,13 @@ Lau ji Ghauri aya fir
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
 public class FormMenuBar extends JMenuBar implements ActionListener {
 
     private JMenu fileMenu, windowMenu, editMenu;
+    private JMenuItem exitItem;
     private MenuItemListener menuItemListener;
     private JRadioButtonMenuItem redItem, greenItem, blueItem, orangeItem;
 
@@ -32,12 +35,17 @@ public class FormMenuBar extends JMenuBar implements ActionListener {
         this.fileMenu = new JMenu("File");
         JMenuItem exportItem = new JMenuItem("Export data...");
         JMenuItem importItem = new JMenuItem("Import data...");
-        JMenuItem exitItem = new JMenuItem("Exit");
+        exitItem = new JMenuItem("Exit");
+        exitItem.setActionCommand("exit");
+        exitItem.setMnemonic(KeyEvent.VK_X);
+        exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK)); //accelerator for exit
+        exitItem.addActionListener(this);
         fileMenu.add(exportItem);
         fileMenu.add(importItem);
         fileMenu.addSeparator();
         fileMenu.add(exitItem);
 
+        this.fileMenu.setMnemonic(KeyEvent.VK_F);
         this.add(fileMenu);
     }
 
@@ -103,6 +111,14 @@ public class FormMenuBar extends JMenuBar implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        if(e.getSource() == exitItem){
+
+            if(menuItemListener != null){
+
+                menuItemListener.itemClicked(exitItem);
+            }
+        }
 
         if(e.getSource() == redItem){
 

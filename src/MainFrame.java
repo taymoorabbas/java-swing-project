@@ -59,6 +59,11 @@ public class MainFrame extends JFrame{
             @Override
             public void itemClicked(JMenuItem item) {
 
+                if(item.getActionCommand().equals("exit")){
+
+                    System.exit(0);
+                }
+
                 if(item.getActionCommand().equals("showForm")){
 
                     JCheckBoxMenuItem checkBox = (JCheckBoxMenuItem) item;
