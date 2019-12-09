@@ -14,18 +14,20 @@ public class Person {
 
     private int id;
     private String name;
+    private String occupation;
     private AgeCategory age;
     private EmploymentCategory employment;
     private boolean isUSCitizen;
     private String taxID;
     private Gender gender;
 
-    public Person(String name, AgeCategory age,
+    public Person(String name, String occupation, AgeCategory age,
                   EmploymentCategory employment, boolean isUSCitizen,
                   String taxID, Gender gender) {
 
         this.id = ++count;
         this.name = name;
+        this.occupation = occupation;
         this.age = age;
         this.employment = employment;
         this.isUSCitizen = isUSCitizen;
@@ -47,6 +49,14 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
     }
 
     public AgeCategory getAge() {

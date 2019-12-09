@@ -11,11 +11,19 @@ package controller;
 import model.*;
 import ui.FormEvent;
 
+import java.util.ArrayList;
+
 public class Controller {
     private Database database = new Database();
+
+    public ArrayList<Person> getPeople(){
+
+        return database.getPeople();
+    }
     public void addPerson(FormEvent event){
 
         String name = event.getName();
+        String occupation = event.getOccupation();
         int ageID = event.getAgeCategory();
         String employment = event.getEmploymentCategory();
         boolean isUSCitizen = event.isUSCitizen();
@@ -67,7 +75,7 @@ public class Controller {
                 gender = Gender.female;
                 break;
         }
-        Person person = new Person(name,ageCategory, employmentCategory, isUSCitizen, taxID, gender);
+        Person person = new Person(name, occupation, ageCategory, employmentCategory, isUSCitizen, taxID, gender);
         database.addPerson(person);
     }
 }

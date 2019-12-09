@@ -17,6 +17,7 @@ public class MainFrame extends JFrame{
     private ToolbarPanel toolbarPanel;
     private FormPanel formPanel;
     private FormMenuBar formMenuBar;
+    private TablePanel tablePanel;
     private JFileChooser fileChooser;
     private Controller controller;
 
@@ -38,6 +39,8 @@ public class MainFrame extends JFrame{
         this.fileChooser.addChoosableFileFilter(new PersonFileFilter());
 
         this.textPanel = new TextPanel();
+        this.tablePanel = new TablePanel();
+        this.tablePanel.setData(controller.getPeople());
         this.toolbarPanel = new ToolbarPanel();
         this.toolbarPanel.setTextListener(new TextListener() {
             @Override
@@ -52,6 +55,7 @@ public class MainFrame extends JFrame{
             @Override
             public void formFilled(FormEvent e) {
                 controller.addPerson(e);
+                tablePanel.refresh();
             }
         });
 
@@ -120,7 +124,7 @@ public class MainFrame extends JFrame{
 
         this.setJMenuBar(this.formMenuBar);
 
-        this.add(this.textPanel, BorderLayout.CENTER);
+        this.add(this.tablePanel, BorderLayout.CENTER);
         this.add(this.toolbarPanel, BorderLayout.NORTH);
         this.add(this.formPanel, BorderLayout.WEST);
     }
