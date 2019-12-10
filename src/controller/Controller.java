@@ -11,6 +11,7 @@ package controller;
 import model.*;
 import ui.FormEvent;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Controller {
@@ -46,7 +47,7 @@ public class Controller {
                 break;
         }
 
-        EmploymentCategory employmentCategory = null;
+        EmploymentCategory employmentCategory = EmploymentCategory.other;
 
         switch (employment){
 
@@ -77,5 +78,15 @@ public class Controller {
         }
         Person person = new Person(name, occupation, ageCategory, employmentCategory, isUSCitizen, taxID, gender);
         database.addPerson(person);
+    }
+
+    public void saveToFile(File file){
+
+        this.database.savToFile(file);
+    }
+
+    public void loadFromFile(File file){
+
+        this.database.loadFromFile(file);
     }
 }

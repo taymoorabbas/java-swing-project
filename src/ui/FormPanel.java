@@ -68,6 +68,7 @@ public class FormPanel extends JPanel {
 
                     formListener.formFilled(formEvent);
                 }
+                resetFields();
             }
         });
 
@@ -78,7 +79,7 @@ public class FormPanel extends JPanel {
         DefaultListModel ageModel = new DefaultListModel();
         ageModel.addElement("Under 18");
         ageModel.addElement("18 to 65");
-        ageModel.addElement("18 to 65");
+        ageModel.addElement("65 and above");
         ageList.setModel(ageModel);
         ageList.setPreferredSize(new Dimension(110, 70));
         ageList.setBorder(BorderFactory.createEtchedBorder());
@@ -135,6 +136,17 @@ public class FormPanel extends JPanel {
 
         addBorder(Color.orange);
         layoutComponents();
+    }
+
+    private void resetFields() {
+        nameTextField.setText("");
+        occupationTextField.setText("");
+        ageList.setSelectedIndex(0);
+        employmentComboBox.setSelectedIndex(0);
+        citizenCheckBox.setSelected(false);
+        taxIDTextField.setEnabled(false);
+        taxIDTextField.setText("");
+        maleRadio.setSelected(true);
     }
 
     public void addBorder(Color color) {

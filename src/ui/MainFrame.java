@@ -67,15 +67,40 @@ public class MainFrame extends JFrame{
                 if(item.getActionCommand().equals("export")){
 
                     if(fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION){
-                        System.out.println(fileChooser.getSelectedFile());
+
+                        if(fileChooser.getSelectedFile() != null){
+
+                            controller.saveToFile(fileChooser.getSelectedFile());
+                            JOptionPane.showMessageDialog(MainFrame.this, "Data exported successfully",
+                                    "Export", JOptionPane.INFORMATION_MESSAGE);
+                            System.out.println(fileChooser.getSelectedFile());
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(MainFrame.this,
+                                    "Cannot open the file for export",
+                                    "File error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 }
 
                 if(item.getActionCommand().equals("import")){
 
                     if(fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION){
+                        if(fileChooser.getSelectedFile() != null){
 
-                        System.out.println(fileChooser.getSelectedFile());
+                            JOptionPane.showMessageDialog(MainFrame.this, "Data imported successfully",
+                                    "Export", JOptionPane.INFORMATION_MESSAGE);
+                            controller.loadFromFile(fileChooser.getSelectedFile());
+                            tablePanel.refresh();
+                            System.out.println(fileChooser.getSelectedFile());
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(MainFrame.this,
+                                    "Cannot open the file for import",
+                                    "File error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 }
 
