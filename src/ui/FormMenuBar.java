@@ -7,6 +7,7 @@ Lau ji Ghauri aya fir
 */
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -14,6 +15,7 @@ import java.awt.event.KeyEvent;
 
 public class FormMenuBar extends JMenuBar implements ActionListener {
 
+    private Color color = Color.WHITE;
     private JMenu fileMenu, windowMenu, editMenu;
     private JMenuItem importItem, exportItem, exitItem;
     private MenuItemListener menuItemListener;
@@ -21,6 +23,7 @@ public class FormMenuBar extends JMenuBar implements ActionListener {
 
     public FormMenuBar() {
 
+        this.setOpaque(false);
         createFileMenu();
         createWindowMenu();
         createEditMenu();
@@ -33,6 +36,7 @@ public class FormMenuBar extends JMenuBar implements ActionListener {
     private void createFileMenu(){
 
         this.fileMenu = new JMenu("File");
+        this.fileMenu.setForeground(Color.WHITE);
 
         exportItem = new JMenuItem("Export data...");
         exportItem.setActionCommand("export");
@@ -60,6 +64,8 @@ public class FormMenuBar extends JMenuBar implements ActionListener {
     private void createWindowMenu(){
 
         this.windowMenu = new JMenu("Window");
+        this.windowMenu.setForeground(Color.WHITE);
+
         JMenu showMenu = new JMenu("Show");
         JCheckBoxMenuItem showFormCheckBox = new JCheckBoxMenuItem("Show form");
         showFormCheckBox.setSelected(true);
@@ -83,6 +89,7 @@ public class FormMenuBar extends JMenuBar implements ActionListener {
     private void createEditMenu(){
 
         this.editMenu = new JMenu("Edit");
+        this.editMenu.setForeground(Color.WHITE);
         JMenu borderColorMenu = new JMenu("Change border color");
 
         redItem = new JRadioButtonMenuItem("Red");
@@ -115,6 +122,19 @@ public class FormMenuBar extends JMenuBar implements ActionListener {
         editMenu.add(borderColorMenu);
 
         this.add(this.editMenu);
+    }
+
+    public void setColor(Color color){
+
+        this.color = color;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D graphics2D = (Graphics2D) g;
+        graphics2D.setColor(color);
+        graphics2D.fillRect(0,0, getWidth() - 1, getHeight() - 1);
     }
 
     @Override

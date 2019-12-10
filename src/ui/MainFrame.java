@@ -60,6 +60,7 @@ public class MainFrame extends JFrame{
         });
 
         this.formMenuBar = new FormMenuBar();
+        this.formMenuBar.setColor(Color.darkGray);
         this.formMenuBar.setMenuItemListener(new MenuItemListener() {
             @Override
             public void itemClicked(JMenuItem item) {
