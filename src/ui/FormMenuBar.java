@@ -39,10 +39,12 @@ public class FormMenuBar extends JMenuBar implements ActionListener {
         this.fileMenu.setForeground(Color.WHITE);
 
         exportItem = new JMenuItem("Export data...");
+        exportItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK));
         exportItem.setActionCommand("export");
         exportItem.addActionListener(this);
 
         importItem = new JMenuItem("Import data...");
+        importItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK));
         importItem.setActionCommand("import");
         importItem.addActionListener(this);
 

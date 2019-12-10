@@ -12,12 +12,17 @@ import model.Person;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class TablePanel extends JPanel {
 
     private JTable table;
     private PersonTableModel tableModel;
+    private JPopupMenu popupMenu;
 
     public TablePanel(){
 
@@ -40,6 +45,39 @@ public class TablePanel extends JPanel {
         table.getColumnModel().getColumn(6).setPreferredWidth(40);
         table.getColumnModel().getColumn(7).setPreferredWidth(40);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+
+        this.popupMenu = new JPopupMenu();
+        JMenuItem deleteRowItem = new JMenuItem("Delete row");
+        deleteRowItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int row = table.getSelectedRow(); //single row
+                System.out.println("row: " + row);
+
+                int[] rows = table.getSelectedRows();
+                //System.out.println(Arrays.toString(rows)); multiple rows
+            }
+        });
+        this.popupMenu.add(deleteRowItem);
+
+        this.table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                //single row
+                int row = table.rowAtPoint(e.getPoint()); //gets row at given x,y coordinate
+                table.getSelectionModel().setSelectionInterval(row, row);
+                
+                //multiple rows
+//                int[] rows = table.getSelectedRows();
+//                table.getSelectionModel().setSelectionInterval(rows[0], rows[rows.length - 1]);
+
+                if(e.getButton() == MouseEvent.BUTTON3){
+                    popupMenu.show(table, e.getX(), e.getY()); //x, y == location where mouse was clicked
+                }
+            }
+        });
 
         this.add(new JScrollPane(this.table), BorderLayout.CENTER); //table should be scrollable
     }
