@@ -21,6 +21,7 @@ public class MainFrame extends JFrame{
     private TablePanel tablePanel;
     private JFileChooser fileChooser;
     private Controller controller;
+    private PrefsDialog prefsDialog;
 
     public MainFrame(String title){
 
@@ -54,6 +55,9 @@ public class MainFrame extends JFrame{
                 //tablePanel.refresh();
             }
         });
+
+        //prefs dialog
+        this.prefsDialog = new PrefsDialog(this);
 
         this.textPanel = new TextPanel();
         this.toolbarPanel = new ToolbarPanel();
@@ -159,6 +163,10 @@ public class MainFrame extends JFrame{
                 if(item.getActionCommand().equals("orangeColor")){
 
                     formPanel.addBorder(Color.ORANGE);
+                }
+                if(item.getActionCommand().equals("prefs")){
+
+                    prefsDialog.setVisible(true);
                 }
             }
         });

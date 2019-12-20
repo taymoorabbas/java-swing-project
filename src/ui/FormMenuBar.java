@@ -17,7 +17,7 @@ public class FormMenuBar extends JMenuBar implements ActionListener {
 
     private Color color = Color.WHITE;
     private JMenu fileMenu, windowMenu, editMenu;
-    private JMenuItem importItem, exportItem, exitItem;
+    private JMenuItem importItem, exportItem, exitItem, prefsItem;
     private MenuItemListener menuItemListener;
     private JRadioButtonMenuItem redItem, greenItem, blueItem, orangeItem;
 
@@ -83,8 +83,14 @@ public class FormMenuBar extends JMenuBar implements ActionListener {
             }
         });
         showMenu.add(showFormCheckBox);
-        windowMenu.add(showMenu);
 
+        this.prefsItem = new JMenuItem("Preferences...");
+        this.prefsItem.setActionCommand("prefs");
+        this.prefsItem.addActionListener(this);
+        this.prefsItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK));
+
+        windowMenu.add(showMenu);
+        windowMenu.add(prefsItem);
         this.add(windowMenu);
     }
 
@@ -193,6 +199,14 @@ public class FormMenuBar extends JMenuBar implements ActionListener {
             if(menuItemListener != null){
 
                 menuItemListener.itemClicked(orangeItem);
+            }
+        }
+
+        if (e.getSource() == prefsItem){
+
+            if(menuItemListener != null){
+
+                menuItemListener.itemClicked(prefsItem);
             }
         }
     }
