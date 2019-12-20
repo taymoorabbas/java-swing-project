@@ -25,14 +25,18 @@ public class PrefsDialog extends JDialog implements ActionListener {
     public PrefsDialog(JFrame parent){
 
         super(parent, "preferences", false);
-        this.setSize(400,300);
+        this.setSize(340,250);
         this.setLocationRelativeTo(parent);
 
         this.saveButton = new JButton("Save");
         this.saveButton.addActionListener(this);
 
+        //making buttons the same size
         this.cancelButton = new JButton("Cancel");
         this.cancelButton.addActionListener(this);
+
+        Dimension buttonSize = this.cancelButton.getPreferredSize();
+        this.saveButton.setPreferredSize(buttonSize);
 
         this.spinnerNumberModel = new SpinnerNumberModel(3306, 0, 9999, 1);
         this.databasePortSpinner = new JSpinner(this.spinnerNumberModel);
@@ -41,8 +45,29 @@ public class PrefsDialog extends JDialog implements ActionListener {
         this.passwordField = new JPasswordField(10);
         //this.passwordField.setEchoChar('X');
 
-        this.setLayout(new GridBagLayout());
+        layoutComponents();
+    }
+
+    private void layoutComponents() {
+
+        JPanel controlsPanel = new JPanel(new GridBagLayout());
+        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
+        controlsPanel.setBorder(BorderFactory
+                .createCompoundBorder(BorderFactory
+                        .createEmptyBorder(15,15,15,15),
+                        BorderFactory.createTitledBorder("Database preferences")));
+
+        buttonsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        this.setLayout(new BorderLayout());
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+        Insets rightPadding = new Insets(0,0,0,15);
+        Insets noPadding = new Insets(0,0,0,0);
+
+        //toDo: use gridbagContraints.width to span component to multiple cells
+        // ie. gbc.with = 3;
 
         //////first row////////////////////////////////
         gridBagConstraints.weightx = 1;
@@ -51,40 +76,48 @@ public class PrefsDialog extends JDialog implements ActionListener {
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-
-        this.add(new JLabel("Username: "), gridBagConstraints);
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
+        gridBagConstraints.insets = rightPadding;
+        controlsPanel.add(new JLabel("Username: "), gridBagConstraints);
 
         gridBagConstraints.gridx++;
-        this.add(this.usernameField, gridBagConstraints);
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.insets = noPadding;
+        controlsPanel.add(this.usernameField, gridBagConstraints);
 
         //////next row////////////////////////////////
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy++;
-
-        this.add(new JLabel("Password: "), gridBagConstraints);
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
+        gridBagConstraints.insets = rightPadding;
+        controlsPanel.add(new JLabel("Password: "), gridBagConstraints);
 
         gridBagConstraints.gridx++;
-        this.add(this.passwordField, gridBagConstraints);
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.insets = noPadding;
+        controlsPanel.add(this.passwordField, gridBagConstraints);
 
         //////next row////////////////////////////////
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy++;
-
-        this.add(new JLabel("Port: "), gridBagConstraints);
-
-        gridBagConstraints.gridx++;
-        this.add(this.databasePortSpinner, gridBagConstraints);
-
-        //////next row//////////////////////
-
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy++;
-        add(saveButton, gridBagConstraints);
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
+        gridBagConstraints.insets = rightPadding;
+        controlsPanel.add(new JLabel("Port: "), gridBagConstraints);
 
         gridBagConstraints.gridx++;
-        add(this.cancelButton, gridBagConstraints);
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.insets = noPadding;
+        controlsPanel.add(this.databasePortSpinner, gridBagConstraints);
+
+        //////Buttons panel//////////////////////
+
+        buttonsPanel.add(this.saveButton);
+        buttonsPanel.add(this.cancelButton);
+
+        this.add(controlsPanel, BorderLayout.CENTER);
+        this.add(buttonsPanel, BorderLayout.SOUTH);
     }
 
     public void setPrefsListener(PrefsListener prefsListener){
