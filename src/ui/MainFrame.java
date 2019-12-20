@@ -11,6 +11,7 @@ import controller.Controller;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.prefs.Preferences;
 
 public class MainFrame extends JFrame{
 
@@ -22,6 +23,7 @@ public class MainFrame extends JFrame{
     private JFileChooser fileChooser;
     private Controller controller;
     private PrefsDialog prefsDialog;
+    private Preferences preferences;
 
     public MainFrame(String title){
 
@@ -32,6 +34,9 @@ public class MainFrame extends JFrame{
 
         this.setMinimumSize(new Dimension(600,500));
         this.setSize(600, 500);
+
+        //prefs
+        this.preferences = Preferences.userRoot().node(this.getClass().getName());
 
         //Controller
         this.controller = new Controller();
@@ -58,7 +63,25 @@ public class MainFrame extends JFrame{
 
         //prefs dialog
         this.prefsDialog = new PrefsDialog(this);
+        this.prefsDialog.setPrefsListener(new PrefsListener() {
+            @Override
+            public void prefsSet(int port, String username, String password) {
 
+                System.out.format("%10d %10s %10s", port, username, password);
+                preferences.putInt("port", port);
+                preferences.put("username", username);
+                preferences.put("password", password);
+            }
+        });
+
+        this.prefsDialog
+                .setDefaults(
+                        this.preferences.getInt("port", 3306),
+                        this.preferences.get("username", ""),
+                        this.preferences.get("password",""));
+
+
+        //text panel and toolbar panel
         this.textPanel = new TextPanel();
         this.toolbarPanel = new ToolbarPanel();
         this.toolbarPanel.setTextListener(new TextListener() {
