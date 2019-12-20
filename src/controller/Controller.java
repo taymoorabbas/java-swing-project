@@ -12,12 +12,12 @@ import model.*;
 import ui.FormEvent;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
     private Database database = new Database();
 
-    public ArrayList<Person> getPeople(){
+    public List<Person> getPeople(){
 
         return database.getPeople();
     }
@@ -80,9 +80,14 @@ public class Controller {
         database.addPerson(person);
     }
 
+    public void removePerson(int row){
+
+        this.database.removePerson(row);
+    }
+
     public void saveToFile(File file){
 
-        this.database.savToFile(file);
+        this.database.saveToFile(file);
     }
 
     public void loadFromFile(File file){

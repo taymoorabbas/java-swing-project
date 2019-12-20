@@ -9,16 +9,15 @@ Lau ji Ghauri aya fir
 package model;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class Database {
 
-    private ArrayList<Person> people;
+    private List<Person> people;
 
     public Database(){
 
-        this.people = new ArrayList<>();
+        this.people = new LinkedList<>();
     }
 
     public void addPerson(Person person){
@@ -26,12 +25,17 @@ public class Database {
         this.people.add(person);
     }
 
-    public ArrayList<Person> getPeople(){
+    public void removePerson(int row){
 
-        return this.people;
+        this.people.remove(row);
     }
 
-    public void savToFile(File file){
+    public List<Person> getPeople(){
+
+        return Collections.unmodifiableList(this.people);
+    }
+
+    public void saveToFile(File file){
 
         //to avoid serializable class
         Person[] peopleArray = this.people.toArray(new Person[people.size()]);

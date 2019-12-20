@@ -16,13 +16,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import java.util.List;
 
 public class TablePanel extends JPanel {
 
     private JTable table;
     private PersonTableModel tableModel;
     private JPopupMenu popupMenu;
+    private PersonTableListener personTableListener;
 
     public TablePanel(){
 
@@ -55,6 +56,12 @@ public class TablePanel extends JPanel {
                 int row = table.getSelectedRow(); //single row
                 System.out.println("row: " + row);
 
+                if(personTableListener != null){
+
+                    personTableListener.deleteRow(row);
+                    tableModel.fireTableRowsDeleted(row, row);
+                }
+
                 int[] rows = table.getSelectedRows();
                 //System.out.println(Arrays.toString(rows)); multiple rows
             }
@@ -81,7 +88,12 @@ public class TablePanel extends JPanel {
 
         this.add(new JScrollPane(this.table), BorderLayout.CENTER); //table should be scrollable
     }
-    public void setData(ArrayList<Person> people){
+
+    public void setPersonTableListener(PersonTableListener personTableListener) {
+        this.personTableListener = personTableListener;
+    }
+
+    public void setData(List<Person> people){
 
         this.tableModel.setData(people);
     }

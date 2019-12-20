@@ -10,6 +10,7 @@ import controller.Controller;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class MainFrame extends JFrame{
 
@@ -36,11 +37,25 @@ public class MainFrame extends JFrame{
 
         //file chooser
         this.fileChooser = new JFileChooser();
-        this.fileChooser.addChoosableFileFilter(new PersonFileFilter());
+        //this.fileChooser.addChoosableFileFilter(new PersonFileFilter());
+        this.fileChooser.setFileFilter(new PersonFileFilter());
+        //make downloads the default directory
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home") +
+                System.getProperty("file.separator") + "Downloads"));
 
-        this.textPanel = new TextPanel();
         this.tablePanel = new TablePanel();
         this.tablePanel.setData(controller.getPeople());
+        this.tablePanel.setPersonTableListener(new PersonTableListener(){
+
+            public void deleteRow(int row){
+
+                System.out.println(row);
+                controller.removePerson(row);
+                //tablePanel.refresh();
+            }
+        });
+
+        this.textPanel = new TextPanel();
         this.toolbarPanel = new ToolbarPanel();
         this.toolbarPanel.setTextListener(new TextListener() {
             @Override

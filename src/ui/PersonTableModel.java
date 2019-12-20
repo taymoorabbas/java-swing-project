@@ -11,11 +11,11 @@ package ui;
 import model.Person;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
+import java.util.List;
 
 public class PersonTableModel extends AbstractTableModel {
 
-    private ArrayList<Person> people;
+    private List<Person> people;
     private String[] columnNames = {
             "ID",
             "Name",
@@ -28,7 +28,7 @@ public class PersonTableModel extends AbstractTableModel {
 
     public PersonTableModel(){ }
 
-    public void setData(ArrayList<Person> people){
+    public void setData(List<Person> people){
 
         this.people = people;
     }
