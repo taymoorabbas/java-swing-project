@@ -13,31 +13,31 @@ import java.awt.event.ActionListener;
 
 public class ToolbarPanel extends JPanel implements ActionListener {
 
-    private JButton helloButton, goodbyeButton;
-    private TextListener textListener;
+    private JButton saveButton, refreshButton;
+    private ToolbarListener toolbarListener;
 
     public ToolbarPanel(){
 
         this.setLayout(new FlowLayout(FlowLayout.LEADING));
 
-        this.helloButton = new JButton("Hello");
-        this.goodbyeButton = new JButton("Goodbye");
+        this.saveButton = new JButton("Save");
+        this.refreshButton = new JButton("Refresh");
 
-        this.helloButton.addActionListener(this);
-        this.goodbyeButton.addActionListener(this);
+        this.saveButton.addActionListener(this);
+        this.refreshButton.addActionListener(this);
 
         this.setBorder(BorderFactory.
                 createCompoundBorder(BorderFactory.createEmptyBorder(5,5,5,5),
                         BorderFactory.createLineBorder(Color.orange, 2, true)));
 
 
-        this.add(helloButton);
-        this.add(goodbyeButton);
+        this.add(saveButton);
+        this.add(refreshButton);
     }
 
-    public void setTextListener(TextListener textListener){
+    public void setToolbarListener(ToolbarListener toolbarListener){
 
-        this.textListener = textListener;
+        this.toolbarListener = toolbarListener;
     }
 
     @Override
@@ -45,18 +45,18 @@ public class ToolbarPanel extends JPanel implements ActionListener {
 
         JButton clickedButton = (JButton) e.getSource();
 
-        if(clickedButton == this.helloButton){
+        if(clickedButton == this.saveButton){
 
-            if(this.textListener != null){
+            if(this.toolbarListener != null){
 
-                textListener.textListened("Hello\n");
+                toolbarListener.saveEventOccurred();
             }
         }
-        if(clickedButton == this.goodbyeButton){
+        if(clickedButton == this.refreshButton){
 
-            if(this.textListener != null){
+            if(this.toolbarListener != null){
 
-                textListener.textListened("Goodbye\n");
+                toolbarListener.refreshEventOccurred();
             }
         }
     }

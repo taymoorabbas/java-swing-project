@@ -6,7 +6,8 @@ Time: 7:05 PM
 Lau ji Ghauri aya fir
 */
 
-public interface TextListener {
+public interface ToolbarListener {
 
-    void textListened(String text);
+    void saveEventOccurred();
+    void refreshEventOccurred();
 }

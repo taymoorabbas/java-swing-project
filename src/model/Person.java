@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Person implements Serializable {
 
     public static final long serialVersionUID = -4244178739045579171L;
-    private static int count = 0;
+    private static int count = 1;
 
     private int id;
     private String name;
@@ -28,7 +28,7 @@ public class Person implements Serializable {
                   EmploymentCategory employment, boolean isUSCitizen,
                   String taxID, Gender gender) {
 
-        this.id = ++count;
+        this.id = count++;
         this.name = name;
         this.occupation = occupation;
         this.age = age;
@@ -36,6 +36,14 @@ public class Person implements Serializable {
         this.isUSCitizen = isUSCitizen;
         this.taxID = taxID;
         this.gender = gender;
+    }
+
+    public Person(int id, String name, String occupation, AgeCategory age,
+                  EmploymentCategory employment, boolean isUSCitizen,
+                  String taxID, Gender gender) {
+
+        this(name, occupation, age, employment, isUSCitizen, taxID, gender);
+        this.id = id;
     }
 
     public int getId() {
@@ -100,5 +108,10 @@ public class Person implements Serializable {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public String toString() {
+        return "id: " + this.id + ", name: " + this.name;
     }
 }

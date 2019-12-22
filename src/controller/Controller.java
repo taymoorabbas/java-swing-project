@@ -12,11 +12,31 @@ import model.*;
 import ui.FormEvent;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Controller {
     private Database database = new Database();
 
+    //wrapper methods
+    public void connect() throws SQLException, ClassNotFoundException {
+
+        database.connect();
+    }
+
+    public void disconnect(){
+        database.disconnect();
+    }
+
+    public void save() throws SQLException {
+
+        database.save();
+    }
+
+    public void load() throws SQLException {
+
+        database.load();
+    }
     public List<Person> getPeople(){
 
         return database.getPeople();

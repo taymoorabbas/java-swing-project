@@ -11,6 +11,7 @@ import controller.Controller;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.prefs.Preferences;
 
 public class MainFrame extends JFrame{
@@ -84,11 +85,61 @@ public class MainFrame extends JFrame{
         //text panel and toolbar panel
         this.textPanel = new TextPanel();
         this.toolbarPanel = new ToolbarPanel();
-        this.toolbarPanel.setTextListener(new TextListener() {
+        this.toolbarPanel.setToolbarListener(new ToolbarListener() {
             @Override
-            public void textListened(String text) {
+            public void saveEventOccurred() {
 
-                textPanel.appendText(text);
+                try {
+                    controller.connect();
+                }
+                catch (ClassNotFoundException | SQLException e) {
+                    JOptionPane.showMessageDialog(MainFrame.this,
+                            "Cannot connect to database", "Database error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                try {
+                    controller.save();
+                    JOptionPane.showMessageDialog(MainFrame.this,
+                            "Data saved to database", "Database",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                catch (SQLException e) {
+                    JOptionPane.showMessageDialog(MainFrame.this,
+                            "Cannot save to database", "Database error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                finally {
+                    controller.disconnect();
+                }
+                System.out.println("Save clicked");
+            }
+
+            @Override
+            public void refreshEventOccurred() {
+                try {
+                    controller.connect();
+                }
+                catch (ClassNotFoundException | SQLException e) {
+                    JOptionPane.showMessageDialog(MainFrame.this,
+                            "Cannot connect to database", "Database error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                try {
+                    controller.load();
+                    tablePanel.refresh();
+                    JOptionPane.showMessageDialog(MainFrame.this,
+                            "Data imported from database", "Database",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                catch (SQLException e) {
+                    JOptionPane.showMessageDialog(MainFrame.this,
+                            "Cannot load from database", "Database error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                finally {
+                    controller.disconnect();
+                }
+                System.out.println("Refresh clicked");
             }
         });
 
