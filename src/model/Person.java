@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Person implements Serializable {
 
     public static final long serialVersionUID = -4244178739045579171L;
-    private static int count = 1;
+    private static int count = Prefs.getCount();
 
     private int id;
     private String name;
@@ -36,6 +36,7 @@ public class Person implements Serializable {
         this.isUSCitizen = isUSCitizen;
         this.taxID = taxID;
         this.gender = gender;
+        Prefs.saveCount(count);
     }
 
     public Person(int id, String name, String occupation, AgeCategory age,

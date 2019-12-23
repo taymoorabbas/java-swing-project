@@ -8,9 +8,11 @@ Lau ji Ghauri aya fir
 
 import model.*;
 
+import java.sql.SQLException;
+
 public class DBTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
         Database database = new Database();
         database.addPerson(new Person("taymoor", "software", AgeCategory.adult,
@@ -19,8 +21,11 @@ public class DBTest {
         database.addPerson(new Person("ashraf chaudhry", "sales", AgeCategory.adult,
                 EmploymentCategory.employed, false, null , Gender.male));
 
-//        database.connect();
-//        database.load();
-//        database.disconnect();
+        database.connect();
+        database.load();
+        database.save();
+        database.load();
+        database.save();
+        database.disconnect();
     }
 }
