@@ -11,6 +11,9 @@ import model.Prefs;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.sql.SQLException;
 
@@ -30,8 +33,17 @@ public class MainFrame extends JFrame{
         super(title);
         this.setLayout(new BorderLayout());
         this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                controller.disconnect();
+                dispose(); //close window
+                System.gc();
+                System.out.println("window closing");
+            }
+        });
         this.setMinimumSize(new Dimension(600,500));
         this.setSize(600, 500);
 
@@ -196,7 +208,12 @@ public class MainFrame extends JFrame{
 
                     if(choice == JOptionPane.YES_OPTION){
 
-                        System.exit(0);
+                        //contains all window listeners ie. closing event
+                        WindowListener[] windowListeners = getWindowListeners();
+                        for(WindowListener windowListener : windowListeners){
+
+                            windowListener.windowClosing(new WindowEvent(MainFrame.this, 0));
+                        }
                     }
                 }
 
