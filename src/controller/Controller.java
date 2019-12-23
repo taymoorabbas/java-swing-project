@@ -19,6 +19,11 @@ public class Controller {
     private Database database = new Database();
 
     //wrapper methods
+    public void configure(int port, String username, String password) throws SQLException, ClassNotFoundException {
+
+        database.configure(port, username, password);
+    }
+
     public void connect() throws SQLException, ClassNotFoundException {
 
         database.connect();

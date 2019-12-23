@@ -81,10 +81,18 @@ public class MainFrame extends JFrame{
             @Override
             public void prefsSet(int port, String username, String password) {
 
-                System.out.format("%10d %10s %10s", port, username, password);
                 Prefs.savePort(port);
                 Prefs.saveUsername(username);
                 Prefs.savePassword(password);
+
+                try {
+                    controller.configure(port, username, password);
+                }
+                catch (SQLException | ClassNotFoundException e) {
+                    JOptionPane.showMessageDialog(MainFrame.this,
+                            "Unable to configure database connection",
+                            "database", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -94,7 +102,15 @@ public class MainFrame extends JFrame{
                         Prefs.getUsername(),
                         Prefs.getPassword());
 
-
+        try {
+            controller.configure(Prefs.getPort(), Prefs.getUsername(), Prefs.getPassword());
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(MainFrame.this,
+                    "Unable to configure database connection",
+                    "database", JOptionPane.ERROR_MESSAGE);
+        }
+        
         //text panel and toolbar panel
         this.textPanel = new TextPanel();
         this.toolbarPanel = new ToolbarPanel();

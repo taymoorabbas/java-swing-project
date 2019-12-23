@@ -20,9 +20,26 @@ public class Database {
     private List<Person> people;
     private Connection connection;
 
+    private int port;
+    private String username;
+    private String password;
+
     public Database(){
 
         this.people = new LinkedList<>();
+    }
+
+    public void configure(int port, String username, String password) throws SQLException, ClassNotFoundException {
+
+        this.port = port;
+        this.username = username;
+        this.password = password;
+
+        if(connection != null){
+
+            disconnect();
+            connect();
+        }
     }
 
     public void connect() throws ClassNotFoundException, SQLException {
