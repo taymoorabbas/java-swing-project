@@ -30,6 +30,7 @@ public class MainFrame extends JFrame{
     private Controller controller;
     private PrefsDialog prefsDialog;
     private JSplitPane splitPane;
+    private JTabbedPane tabbedPane;
 
     public MainFrame(String title){
 
@@ -254,9 +255,14 @@ public class MainFrame extends JFrame{
 
         this.setJMenuBar(this.formMenuBar);
 
+        //tabbed pane
+        tabbedPane = new JTabbedPane();
+        tabbedPane.setFont(new Font("SansSerif", Font.BOLD, 18));
+        tabbedPane.addTab("Person database", tablePanel);
+        tabbedPane.addTab("Messages", textPanel);
+
         //split pane
-        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-                formPanel, tablePanel);
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, formPanel, tabbedPane);
         splitPane.setOneTouchExpandable(true);
 
         //to limit the drag of split pane

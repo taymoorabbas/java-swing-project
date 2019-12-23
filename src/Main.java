@@ -9,6 +9,7 @@ Lau ji Ghauri aya fir
 import ui.MainFrame;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Main {
 
@@ -21,6 +22,8 @@ public class Main {
                 IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+
+        UIManager.put("TabbedPane.background", Color.GRAY);
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override
