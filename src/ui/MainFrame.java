@@ -248,7 +248,7 @@ public class MainFrame extends JFrame{
         this.setJMenuBar(this.formMenuBar);
 
         this.add(this.tablePanel, BorderLayout.CENTER);
-        this.add(this.toolbarPanel, BorderLayout.NORTH);
+        this.add(this.toolbarPanel, BorderLayout.PAGE_START); //to setup toolbar as dock able
         this.add(this.formPanel, BorderLayout.WEST);
     }
 }

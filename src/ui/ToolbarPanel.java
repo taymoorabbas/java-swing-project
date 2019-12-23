@@ -12,30 +12,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 
-public class ToolbarPanel extends JPanel implements ActionListener {
+public class ToolbarPanel extends JToolBar implements ActionListener {
 
     private JButton saveButton, refreshButton;
     private ToolbarListener toolbarListener;
 
     public ToolbarPanel(){
 
-        this.setLayout(new FlowLayout(FlowLayout.LEADING));
+        //to make border float able
+        setFloatable(false);
 
-        this.saveButton = new JButton("Save");
-        this.saveButton.setIcon(createIcon("/images/save.png"));
+        this.saveButton = new JButton(createIcon("/images/save.png"));
+        this.saveButton.setToolTipText("Save");
 
-        this.refreshButton = new JButton("Refresh");
-        this.refreshButton.setIcon(createIcon("/images/refresh.png"));
+        this.refreshButton = new JButton(createIcon("/images/refresh.png"));
+        this.refreshButton.setToolTipText("Refresh");
 
         this.saveButton.addActionListener(this);
         this.refreshButton.addActionListener(this);
-
+//
         this.setBorder(BorderFactory.
                 createCompoundBorder(BorderFactory.createEmptyBorder(5,5,5,5),
                         BorderFactory.createLineBorder(Color.orange, 2, true)));
 
 
         this.add(saveButton);
+        this.addSeparator(new Dimension(10,10));
         this.add(refreshButton);
     }
 
@@ -55,7 +57,7 @@ public class ToolbarPanel extends JPanel implements ActionListener {
             //get a resized icon to 16x16
             ImageIcon imageIcon = new ImageIcon(url, "meri jooti ko parwa nai");
             Image image = imageIcon.getImage();
-            Image resized = image.getScaledInstance(16,16, java.awt.Image.SCALE_SMOOTH);
+            Image resized = image.getScaledInstance(32,32, java.awt.Image.SCALE_SMOOTH);
             return new ImageIcon(resized);
         }
 
