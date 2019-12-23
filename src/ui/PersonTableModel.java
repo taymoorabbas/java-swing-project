@@ -51,9 +51,15 @@ public class PersonTableModel extends AbstractTableModel {
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
 
+        Person person = people.get(rowIndex);
+        if (columnIndex == 6) {
+            return person.isUSCitizen();
+        }
         return true;
     }
 
+    //for updating edited values
+    //todo: implement all columns
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 
@@ -68,9 +74,47 @@ public class PersonTableModel extends AbstractTableModel {
              case 1:
                  person.setName((String) aValue );
                  break;
+             case 5:
+                 person.setUSCitizen(((Boolean) aValue));
+                 fireTableCellUpdated(rowIndex, columnIndex);
+
+                 if(!person.isUSCitizen()){
+                     person.setTaxID(null);
+                     fireTableCellUpdated(rowIndex, 6);
+                 }
+                 break;
+             case 6:
+                 person.setTaxID((String)aValue);
+                 break;
              default:
                  return;
          }
+    }
+
+    //custom made columns
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+
+        switch (columnIndex){
+            case 0:
+                return Integer.class;
+            case 1:
+                return String.class;
+            case 2:
+                return String.class;
+            case 3:
+                return String.class;
+            case 4:
+                return String.class;
+            case 5:
+                return Boolean.class;
+            case 6:
+                return String.class;
+            case 7:
+                return String.class;
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -78,7 +122,6 @@ public class PersonTableModel extends AbstractTableModel {
         Person person = people.get(rowIndex);
 
         switch (columnIndex){
-
             case 0:
                 return person.getId();
             case 1:
