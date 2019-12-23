@@ -31,6 +31,7 @@ public class MainFrame extends JFrame{
     private PrefsDialog prefsDialog;
     private JSplitPane splitPane;
     private JTabbedPane tabbedPane;
+    private ModalDialog modalDialog;
 
     public MainFrame(String title){
 
@@ -38,6 +39,17 @@ public class MainFrame extends JFrame{
         this.setLayout(new BorderLayout());
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        //modal dialog
+        modalDialog = new ModalDialog(MainFrame.this);
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+
+                modalDialog.setVisible(true);
+            }
+        });
 
         addWindowListener(new WindowAdapter() {
             @Override
