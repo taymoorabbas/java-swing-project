@@ -14,6 +14,8 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.sql.SQLException;
 
@@ -27,6 +29,7 @@ public class MainFrame extends JFrame{
     private JFileChooser fileChooser;
     private Controller controller;
     private PrefsDialog prefsDialog;
+    private JSplitPane splitPane;
 
     public MainFrame(String title){
 
@@ -220,6 +223,10 @@ public class MainFrame extends JFrame{
                 if(item.getActionCommand().equals("showForm")){
 
                     JCheckBoxMenuItem checkBox = (JCheckBoxMenuItem) item;
+                    if(checkBox.isSelected()){
+
+                        splitPane.setDividerLocation((int) formPanel.getMinimumSize().getWidth());
+                    }
                     formPanel.setVisible(checkBox.isSelected());
                 }
                 if(item.getActionCommand().equals("redColor")){
@@ -247,8 +254,27 @@ public class MainFrame extends JFrame{
 
         this.setJMenuBar(this.formMenuBar);
 
-        this.add(this.tablePanel, BorderLayout.CENTER);
+        //split pane
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+                formPanel, tablePanel);
+        splitPane.setOneTouchExpandable(true);
+
+        //to limit the drag of split pane
+        splitPane.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+
+                JSplitPane splitPane = (JSplitPane)evt.getSource();
+
+                int screenSize = (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2);
+                if(splitPane.getDividerLocation() > screenSize){
+
+                    splitPane.setDividerLocation(screenSize);
+                }
+            }
+        });
+
         this.add(this.toolbarPanel, BorderLayout.PAGE_START); //to setup toolbar as dock able
-        this.add(this.formPanel, BorderLayout.WEST);
+        this.add(this.splitPane, BorderLayout.CENTER);
     }
 }
