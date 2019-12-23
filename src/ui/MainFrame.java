@@ -10,10 +10,10 @@ import controller.Controller;
 import model.Prefs;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -39,17 +39,6 @@ public class MainFrame extends JFrame{
         this.setLayout(new BorderLayout());
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-        //modal dialog
-        modalDialog = new ModalDialog(MainFrame.this);
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-
-                modalDialog.setVisible(true);
-            }
-        });
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -272,6 +261,47 @@ public class MainFrame extends JFrame{
         tabbedPane.setFont(new Font("SansSerif", Font.BOLD, 18));
         tabbedPane.addTab("Person database", tablePanel);
         tabbedPane.addTab("Messages", textPanel);
+
+        tabbedPane.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+                if(tabbedPane.getSelectedIndex() == 0){
+
+                    JDialog dialog = new JDialog(MainFrame.this, "Switched to tab 1");
+                    dialog.setLocationRelativeTo(MainFrame.this);
+                    dialog.setSize(500,200);
+                    dialog.setModal(false);
+                    dialog.setVisible(true);
+
+                    //timer to show dialog for 2 sec
+                    new Timer(2000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+
+                            dialog.setVisible(false);
+                        }
+                    }).start();
+                }
+                else{
+
+                    JDialog dialog = new JDialog(MainFrame.this, "Switched to tab 2");
+                    dialog.setLocationRelativeTo(MainFrame.this);
+                    dialog.setSize(500,200);
+                    dialog.setModal(false);
+                    dialog.setVisible(true);
+
+                    //timer to show dialog for 2 sec
+                    new Timer(2000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+
+                            dialog.setVisible(false);
+                        }
+                    }).start();
+                }
+            }
+        });
 
         //split pane
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, formPanel, tabbedPane);
