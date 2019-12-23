@@ -49,6 +49,31 @@ public class PersonTableModel extends AbstractTableModel {
     }
 
     @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+
+        return true;
+    }
+
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+
+        if (people == null){
+
+            return;
+        }
+
+        Person person = people.get(rowIndex);
+
+         switch (columnIndex){
+             case 1:
+                 person.setName((String) aValue );
+                 break;
+             default:
+                 return;
+         }
+    }
+
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Person person = people.get(rowIndex);
 

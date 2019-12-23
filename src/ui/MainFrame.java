@@ -65,6 +65,7 @@ public class MainFrame extends JFrame{
 
         this.tablePanel = new TablePanel();
         this.tablePanel.setData(controller.getPeople());
+        this.tablePanel.autoSort(true);
         this.tablePanel.setPersonTableListener(new PersonTableListener(){
 
             public void deleteRow(int row){
@@ -338,7 +339,29 @@ public class MainFrame extends JFrame{
             }
         });
 
+        refresh();
+
         this.add(this.toolbarPanel, BorderLayout.PAGE_START); //to setup toolbar as dock able
         this.add(this.splitPane, BorderLayout.CENTER);
+    }
+
+    //auto refresh table on startup
+    private void refresh(){
+
+        try {
+            controller.connect();
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(MainFrame.this,
+                    "Cannot connect to database", "database",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            controller.load();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(MainFrame.this,
+                    "Cannot load from database", "database",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        tablePanel.refresh();
     }
 }

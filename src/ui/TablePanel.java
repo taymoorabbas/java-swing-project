@@ -32,6 +32,7 @@ public class TablePanel extends JPanel {
         this.tableModel = new PersonTableModel();
 
         this.table = new JTable(this.tableModel);
+
         this.table.setFont(new Font("SanSerif", Font.BOLD, 14));
         this.table.setRowHeight(25);
         this.table.getTableHeader().setOpaque(false);
@@ -87,6 +88,12 @@ public class TablePanel extends JPanel {
         });
 
         this.add(new JScrollPane(this.table), BorderLayout.CENTER); //table should be scrollable
+    }
+
+    //to get a sorter for each column
+    public void autoSort(boolean autoSort){
+
+        this.table.setAutoCreateRowSorter(autoSort);
     }
 
     public void setPersonTableListener(PersonTableListener personTableListener) {
