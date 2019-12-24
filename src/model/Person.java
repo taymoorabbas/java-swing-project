@@ -24,6 +24,12 @@ public class Person implements Serializable {
     private String taxID;
     private Gender gender;
 
+    public Person(){
+
+        this.id = count++;
+        Prefs.saveCount(count);
+    }
+
     public Person(String name, String occupation, AgeCategory age,
                   EmploymentCategory employment, boolean isUSCitizen,
                   String taxID, Gender gender) {

@@ -8,6 +8,7 @@ Lau ji Ghauri aya fir
 
 package ui;
 
+import model.EmploymentCategory;
 import model.Person;
 
 import javax.swing.*;
@@ -32,6 +33,10 @@ public class TablePanel extends JPanel {
         this.tableModel = new PersonTableModel();
 
         this.table = new JTable(this.tableModel);
+
+        //adding custom renderer or this cell todo: implement all other cells by yourself
+        this.table.setDefaultRenderer(EmploymentCategory.class, new EmploymentCategoryRenderer());
+        this.table.setDefaultEditor(EmploymentCategory.class, new EmploymentCategoryEditor());
 
         this.table.setFont(new Font("SanSerif", Font.BOLD, 14));
         this.table.setRowHeight(25);
@@ -94,6 +99,11 @@ public class TablePanel extends JPanel {
     public void autoSort(boolean autoSort){
 
         this.table.setAutoCreateRowSorter(autoSort);
+    }
+    public void newRow(){
+
+        int row = (table.getModel().getRowCount()) - 1;
+        table.getSelectionModel().setSelectionInterval(row, row);
     }
 
     public void setPersonTableListener(PersonTableListener personTableListener) {

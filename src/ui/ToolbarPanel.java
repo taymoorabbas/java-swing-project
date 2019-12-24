@@ -14,7 +14,7 @@ import java.net.URL;
 
 public class ToolbarPanel extends JToolBar implements ActionListener {
 
-    private JButton saveButton, refreshButton;
+    private JButton saveButton, refreshButton, addButton;
     private ToolbarListener toolbarListener;
 
     public ToolbarPanel(){
@@ -28,8 +28,11 @@ public class ToolbarPanel extends JToolBar implements ActionListener {
         this.refreshButton = new JButton(createIcon("/images/refresh.png"));
         this.refreshButton.setToolTipText("Refresh");
 
+        this.addButton = new JButton("Add new");
+
         this.saveButton.addActionListener(this);
         this.refreshButton.addActionListener(this);
+        this.addButton.addActionListener(this);
 //
         this.setBorder(BorderFactory.
                 createCompoundBorder(BorderFactory.createEmptyBorder(5,5,5,5),
@@ -39,6 +42,8 @@ public class ToolbarPanel extends JToolBar implements ActionListener {
         this.add(saveButton);
         this.addSeparator(new Dimension(10,10));
         this.add(refreshButton);
+        this.addSeparator(new Dimension(10,10));
+        this.add(addButton);
     }
 
     private ImageIcon createIcon(String path){
@@ -87,6 +92,10 @@ public class ToolbarPanel extends JToolBar implements ActionListener {
 
                 toolbarListener.refreshEventOccurred();
             }
+        }
+        if(clickedButton == this.addButton){
+
+            toolbarListener.addEventOccurred();
         }
     }
 }

@@ -105,6 +105,15 @@ public class Controller {
         database.addPerson(person);
     }
 
+    public void addPerson(){
+
+        if (database.getPeople().get(getPeople().size() - 1).getName() == null){
+
+            return;
+        }
+        database.addPerson(new Person());
+    }
+
     public void removePerson(int row){
 
         this.database.removePerson(row);

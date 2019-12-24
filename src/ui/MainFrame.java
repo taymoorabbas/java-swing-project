@@ -74,6 +74,10 @@ public class MainFrame extends JFrame{
                 controller.removePerson(row);
                 //tablePanel.refresh();
             }
+            @Override
+            public void addRow() {
+
+            }
         });
 
         //prefs dialog
@@ -157,6 +161,13 @@ public class MainFrame extends JFrame{
                             "Database", JOptionPane.ERROR_MESSAGE);
                 }
                 tablePanel.refresh();
+            }
+
+            @Override
+            public void addEventOccurred() {
+                controller.addPerson();
+                tablePanel.refresh();
+                tablePanel.newRow();
             }
         });
 

@@ -8,6 +8,7 @@ Lau ji Ghauri aya fir
 
 package ui;
 
+import model.EmploymentCategory;
 import model.Person;
 
 import javax.swing.table.AbstractTableModel;
@@ -74,6 +75,9 @@ public class PersonTableModel extends AbstractTableModel {
              case 1:
                  person.setName((String) aValue );
                  break;
+             case 4:
+                 person.setEmployment((EmploymentCategory) aValue);
+                 break;
              case 5:
                  person.setUSCitizen(((Boolean) aValue));
                  fireTableCellUpdated(rowIndex, columnIndex);
@@ -105,7 +109,7 @@ public class PersonTableModel extends AbstractTableModel {
             case 3:
                 return String.class;
             case 4:
-                return String.class;
+                return EmploymentCategory.class;
             case 5:
                 return Boolean.class;
             case 6:
